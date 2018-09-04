@@ -1,0 +1,58 @@
+
+<?php  if(Mage::Helper('homebanner')->Checkdevice()==1){  ///// For Mobile.....  ?>
+
+<?php 	
+		
+		$store_id = Mage::app()->getStore()->getId();
+		Mage::app()->setCurrentStore($store_id); 
+		$collection=Mage::getModel('homebanner/homebanner')->getCollection()
+			->addFieldToFilter('status',1)			
+			->addFieldToFilter('filename', array('neq' => ''));
+			$collection->setOrder('rank', 'ASC');
+			$collection->addFieldToFilter('visibility',array(2,3)); // For Desktop....	
+		
+		/// remove comment if multiple store or website...	
+		/*$collection->getSelect()
+			->join(array('banner_store' => Mage::getModel('core/resource')->getTableName('homebanner_store')), 'main_table.homebanner_id = banner_store.homebanner_id')
+			->where('banner_store.store_id IN (?)', $store_id);*/
+		
+		?>
+<div class="slider homebanner flexslider">
+<ul class="slides cf">
+          <?php foreach($collection as $hbanner)
+		  {
+		?>        
+        <li><a href="<?php echo $hbanner->getBannerlink();?>" title="<?php echo $hbanner->getTitle();?>"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $hbanner->getFilename();?>" alt="<?php echo $hbanner->getTitle();?>" /></a></li>           
+  	     <?php }?>
+          </ul>
+</div>
+
+<?php }else{?>
+<?php 	
+		
+		$store_id = Mage::app()->getStore()->getId();
+		Mage::app()->setCurrentStore($store_id); 
+		$collection=Mage::getModel('homebanner/homebanner')->getCollection()
+			->addFieldToFilter('status',1)			
+			->addFieldToFilter('filename', array('neq' => ''));
+			$collection->setOrder('rank', 'ASC');
+			$collection->addFieldToFilter('visibility',array(1,3)); // For Desktop....	
+		
+		/// remove comment if multiple store or website...	
+		/*$collection->getSelect()
+			->join(array('banner_store' => Mage::getModel('core/resource')->getTableName('homebanner_store')), 'main_table.homebanner_id = banner_store.homebanner_id')
+			->where('banner_store.store_id IN (?)', $store_id);*/
+		
+		?>
+<div class="slider homebanner flexslider">
+<img src="<?php echo $this->getSkinUrl('images/gray-loader.gif'); ?>" class="slider-loader" alt="gray-loader" >
+<img src="<?php echo $this->getSkinUrl('images/slider-placeholder.gif'); ?>" class="slider-placeholder" alt="slider-placeholder" >
+<ul class="slides cf">
+          <?php foreach($collection as $hbanner)
+		  {
+		?>        
+        <li><a href="<?php echo $hbanner->getBannerlink();?>" title="<?php echo $hbanner->getTitle();?>"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?><?php echo $hbanner->getFilename();?>" alt="<?php echo $hbanner->getTitle();?>" /></a></li>           
+  	     <?php }?>
+          </ul>
+</div>
+<?php }?>

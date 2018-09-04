@@ -1,0 +1,437 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Dcs
+ * @package    Dcs_Homebanner
+ * @author     ModuleCreator
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <Dcs_Homebanner>
+            <version>0.1.2</version>
+        </Dcs_Homebanner>
+    </modules>
+    <frontend>
+        <routers>
+            <homebanner>
+                <use>standard</use>
+                <args>
+                    <module>Dcs_Homebanner</module>
+                    <frontName>homebanner</frontName>
+                </args>
+            </homebanner>	
+			<newsletter>
+                <args>
+                    <modules>
+                        <Dcs_Homebanner before="Mage_Newsletter_SubscriberController">Dcs_Homebanner</Dcs_Homebanner>
+                        <Dcs_Homebanner before="Mage_Newsletter_ManageController">Dcs_Homebanner</Dcs_Homebanner>
+                    </modules>
+                </args>
+            </newsletter>
+			<customer>
+				 <args>
+                    <modules>
+						<Dcs_Homebanner before="Mage_Customer_AccountController">Dcs_Homebanner</Dcs_Homebanner>
+               	 	</modules>
+                </args>
+			</customer>
+        </routers>
+        <layout>
+            <updates>
+                <homebanner>
+                    <file>homebanner.xml</file>
+                </homebanner>
+            </updates>
+        </layout>
+        <events>
+		        <payment_method_is_active>
+		            <observers>
+		                <homebanner_payment_method_is_active>
+		                    <type>singleton</type>
+		                    <class>homebanner/observer</class>
+		                    <method>paymentMethodIsActive</method>
+		                </homebanner_payment_method_is_active>
+		            </observers>
+		        </payment_method_is_active>
+			
+			
+				<controller_action_postdispatch>
+					<observers>
+					   <controller_action_after>
+						  <class>homebanner/observer</class>
+						  <method>hookToControllerActionPostDispatch</method>
+					   </controller_action_after>
+					</observers>
+         		</controller_action_postdispatch>
+			
+    	</events>
+    </frontend>
+    <admin>
+        <routers>
+			<homebanner>
+				<use>admin</use>
+				<args>
+					<module>Dcs_Homebanner</module>
+					<frontName>homebanner</frontName>
+				</args>
+			</homebanner>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<homebanner module="homebanner">
+				<title>23Digital Menu</title>
+				<sort_order>71</sort_order>            
+				
+				
+				<children>
+					<items10 module="homebanner">
+						<title>Manage Home Banner</title>
+						<sort_order>10</sort_order>
+						<action>homebanner/adminhtml_homebanner</action>
+					</items10>
+				</children>
+				
+				<children>
+					<items20 module="homeimage">
+						<title>Manage Mini Banners</title>
+						<sort_order>20</sort_order>
+						<action>homeimage/adminhtml_homeimage</action>
+					</items20>
+				</children>
+				
+
+				<!-- <children>
+					<items25 module="deliverytime">
+						<title>Manage Delivery Time</title>
+						<sort_order>25</sort_order>
+						<action>deliverytime/adminhtml_deliverytime</action>
+					</items25>
+				</children> -->
+
+				<!-- delivery management menu start -->
+				<children>
+					<days module="days">
+						<title>Product Delivery Manager</title>
+						<sort_order>62</sort_order>
+
+						<children>
+							<items1 module="days">
+								<title>Manage Delivery Days</title>
+								<sort_order>0</sort_order>
+								<action>days/adminhtml_days</action>
+							</items1>
+						</children>
+		                
+		                <children>
+		                    <items2 module="providers">
+		                        <title>Manage Delivery Providers</title>
+		                        <sort_order>1</sort_order>
+		                        <action>providers/adminhtml_providers</action>
+		                    </items2>
+		                </children>
+		                
+		                <children>
+		                    <items3 module="shipments">
+		                        <title>Manage Delivery Shipments</title>
+		                        <sort_order>2</sort_order>
+		                        <action>shipments/adminhtml_shipments</action>
+		                    </items3>
+		                </children>
+
+		                <children>
+		                    <items4 module="suburbs">
+		                        <title>Manage Suburbs</title>
+		                        <sort_order>3</sort_order>
+		                        <action>suburbs/adminhtml_suburbs</action>
+		                    </items4>
+		                </children>
+
+		                <children>
+		                    <items5 module="suburbsshipments">
+		                        <title>Manage Suburbs Shipments</title>
+		                        <sort_order>4</sort_order>
+		                        <action>suburbsshipments/adminhtml_suburbsshipments</action>
+		                    </items5>
+		                </children>
+					</days>
+				</children>
+				<!-- delivery management menu end -->
+
+
+				<children>
+					<items26 module="testimonial">
+						<title>Manage Testimonials</title>
+						<sort_order>26</sort_order>
+						<action>testimonial/adminhtml_testimonial</action>
+					</items26>
+				</children>
+
+
+				<children>
+					<items30 module="productlabel">
+						<title>Manage Product Labels</title>
+						<sort_order>30</sort_order>
+						<action>productlabel/adminhtml_productlabel</action>
+					</items30>
+				</children>
+				
+				<children>
+					<items40 module="codall">
+						<title>Manage Catalog Sidebar</title>
+						<sort_order>40</sort_order>
+						<children>
+							<sidenav trnslate="title" module="sidenav">
+								<title>Sidebar Navigation Menu Professional</title>
+								<sort_order>45</sort_order>
+								<action>adminhtml/system_config/edit/section/codnitivecatalog</action>
+                        	</sidenav>
+						</children>	
+					</items40>
+					<!-- <items50 module="codall">
+						<title>Manage Information</title>
+						<sort_order>50</sort_order>
+						<action>adminhtml/system_config/edit/section/codall</action>
+					</items50> -->
+				</children>
+
+				<children>
+					<items50 module="faqs">
+						<title>Manage Faqs</title>
+						<sort_order>50</sort_order>
+						<action>faqs/adminhtml_faqs</action>
+					</items50>
+				</children>
+				
+				<!-- Exclusion and favorite start -->
+				<children>
+					<items51 module="extraregistrationfields">
+						<title>Manage Exclusions / Favourites</title>
+						<sort_order>51</sort_order>
+						<action>extraregistrationfields/adminhtml_extraregistrationfields</action>
+					</items51>
+				</children>
+				<!-- Exclusion and favorite end -->
+				<!-- Add Extra -->
+				<children>
+					<items60 module="codall">
+						<title>Custom Report</title>
+						<sort_order>60</sort_order>
+						<!--<children>
+							<sidenav trnslate="title" module="sidenav">
+								<title>Sidebar Navigation Menu Professional</title>
+								<sort_order>45</sort_order>
+								<action>adminhtml/system_config/edit/section/codnitivecatalog</action>
+                        	</sidenav>
+						</children>	-->
+						<!-- 1. Items Order Reports -->
+						<children>
+							<items61 module="salesreport">
+								<title>Item Order Report</title>
+								<sort_order>60</sort_order>
+								<children>
+									<items1 module="salesreport">
+										<title>Bakery Order Report</title>
+										<sort_order>1</sort_order>
+										<action>salesreport/adminhtml_sales/bakeryorderreport</action>
+									</items1>
+								</children>
+								<children>
+									<items2 module="salesreport">
+										<title>Ordered Items Report</title>
+										<sort_order>2</sort_order>
+										<!--<action>salesreport/adminhtml_sales/reportmanage</action>-->
+										<action>salesreport/adminhtml_sales/ordereditemsreport</action>
+									</items2>
+								</children>
+								<children>
+									<items3 module="salesreport">
+										<title>Add-ons Report</title>
+										<sort_order>3</sort_order>
+										<action>salesreport/adminhtml_sales/addonsreport</action>								
+									</items3>
+								</children>
+							</items61>
+						</children>
+						<!-- 1. Items Order Reports -->
+
+						<!-- 2. Exclusions Report -->
+						<children>
+							<items70 module="salesreport">
+								<title>Exclusions Report</title>
+								<sort_order>70</sort_order>							
+								<action>salesreport/adminhtml_sales/exclusionsreport</action>
+							</items70>
+						</children>
+						<!-- 2. Exclusions Report -->
+
+						<!-- 3. Customers and Items Ordered Reports -->
+						<children>
+							<items80 module="salesreport">
+								<title>Customers and Items Ordered Report</title>
+								<sort_order>80</sort_order>
+								<children>
+									<items1 module="salesreport">
+										<title>Customer Bread Report</title>
+										<sort_order>1</sort_order>
+										<action>salesreport/adminhtml_sales/customerbreadreport</action>
+									</items1>
+								</children>
+								<children>
+									<items2 module="salesreport">
+										<title>Customer Eggs List</title>
+										<sort_order>2</sort_order>
+										<!--<action>salesreport/adminhtml_sales/reportmanage</action>-->
+										<action>salesreport/adminhtml_sales/customereggsreport</action>
+									</items2>
+								</children>
+								<children>
+									<items3 module="salesreport">
+										<title>Cold Items List</title>
+										<sort_order>3</sort_order>
+										<action>salesreport/adminhtml_sales/colditemslist</action>								
+									</items3>
+								</children>
+								<children>
+									<items4 module="salesreport">
+										<title>All Groceries Report</title>
+										<sort_order>4</sort_order>
+										<action>salesreport/adminhtml_sales/allgroceriesreport</action>								
+									</items4>
+								</children>
+							</items80>
+						</children>
+						<!-- 3. Customers and Items Ordered Reports -->
+
+						<!-- 4. Customers and Items Ordered Reports -->
+						<children>
+							<items90 module="salesreport">
+								<title>Customer Lists Report</title>
+								<sort_order>90</sort_order>
+								<children>
+									<items1 module="salesreport">
+										<title>Box Labels Report</title>
+										<sort_order>1</sort_order>
+										<action>salesreport/adminhtml_sales/boxlabelsreport</action>
+									</items1>
+								</children>
+								<children>
+									<items2 module="salesreport">
+										<title>Add-ons Labels Report</title>
+										<sort_order>2</sort_order>
+										<!--<action>salesreport/adminhtml_sales/reportmanage</action>-->
+										<action>salesreport/adminhtml_sales/addonslabelsreport</action>
+									</items2>
+								</children>
+								<children>
+									<items3 module="salesreport">
+										<title>Delivery List Export</title>
+										<sort_order>3</sort_order>
+										<action>salesreport/adminhtml_sales/deliverylistexport</action>								
+									</items3>
+								</children>
+							</items90>
+						</children>
+						<!-- 4. Customers and Items Ordered Reports -->
+					</items60>					
+				</children>
+				<!-- Add Extra -->
+
+				
+			</homebanner>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						
+							<homebanner module="homebanner">
+								<title>23Digital Menu</title>
+								<sort_order>71</sort_order>				            
+	
+									<children>									
+									
+										<items10 module="homebanner">
+											<title>Manage Home Banner</title>
+											<sort_order>10</sort_order>
+											<action>homebanner/adminhtml_homebanner</action>
+										</items10>
+										
+										<items20 module="homeimage">
+											<title>Manage Mini Banners</title>
+											<sort_order>20</sort_order>
+											<action>homeimage/adminhtml_homeimage</action>
+										</items20>
+										
+									</children>				
+	
+							</homebanner>
+						
+						
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<homebanner>
+					<file>homebanner.xml</file>
+				</homebanner>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <homebanner>
+                <class>Dcs_Homebanner_Model</class>
+                <resourceModel>homebanner_mysql4</resourceModel>
+            </homebanner>
+            <homebanner_mysql4>
+                <class>Dcs_Homebanner_Model_Mysql4</class>
+                <entities>
+                    <homebanner>
+                        <table>homebanner</table>
+                    </homebanner>
+					<homebanner_store>
+						<table>homebanner_store</table>
+					</homebanner_store>
+                </entities>
+            </homebanner_mysql4>
+        </models>
+        <resources>
+            <homebanner_setup>
+                <setup>
+                    <module>Dcs_Homebanner</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </homebanner_setup>
+            <homebanner_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </homebanner_write>
+            <homebanner_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </homebanner_read>
+        </resources>
+        <blocks>
+            <homebanner>
+                <class>Dcs_Homebanner_Block</class>
+            </homebanner>
+        </blocks>
+        <helpers>
+            <homebanner>
+                <class>Dcs_Homebanner_Helper</class>
+            </homebanner>
+        </helpers>		
+    </global>
+</config>
